@@ -32,4 +32,29 @@ class ProductController extends Controller
             return ['result'=>'Operation failed !'];
         }
     }
+
+    function getProduct($id) {
+        return Product::find($id);
+    }
+
+    function update($id, Request $req) {
+        $product= Product::find($id);
+        $product->name=$req->input('name');
+        $product->price=$req->input('price');
+        $product->description=$req->input('description');
+        
+        if($req->file('file'))
+        {
+            $product->file_path=$req->file('file')->store('products');
+        }
+        $product->save();
+        return $product;
+
+        if($product)
+        {
+        return ['result'=>"Product has been updated successfuly !"];
+    }else{
+        return ['result'=>"ERROR, Product has not been updated !"];
+    }
+    }
 }
