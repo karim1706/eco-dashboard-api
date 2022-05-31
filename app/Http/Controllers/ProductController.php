@@ -57,4 +57,9 @@ class ProductController extends Controller
         return ['result'=>"ERROR, Product has not been updated !"];
     }
     }
+
+    function search($key)
+    {
+        return Product::where('name','Like',"%$key%")->get();
+    }
 }
